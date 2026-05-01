@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Safarulla · Data Analyst Portfolio</title>
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --glass: rgba(255, 255, 255, 0.1);
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      --border-glow: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--darker);
+      color: #e2e8f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        var(--gradient-dark);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.3);
+      animation: float 15s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+      25% { transform: translateY(-100px) translateX(50px) scale(1.2); opacity: 0.6; }
+      50% { transform: translateY(-200px) translateX(-30px) scale(0.8); opacity: 0.2; }
+      75% { transform: translateY(-50px) translateX(-80px) scale(1.1); opacity: 0.5; }
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* Glass morphism cards */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .gradient-text {
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-text-pink {
+      background: var(--gradient-2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Profile section */
+    .profile-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-img-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid transparent;
+      background: var(--gradient-1) border-box;
+      -webkit-mask: radial-gradient(circle closest-side, transparent 99%, #000 100%);
+      mask: radial-gradient(circle closest-side, transparent 99%, #000 100%);
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.5), 0 10px 30px rgba(0,0,0,0.3);
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-img-glow {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: var(--gradient-1);
+      opacity: 0.4;
+      filter: blur(20px);
+      animation: glowPulse 3s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    /* Buttons and badges */
+    .btn {
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: var(--gradient-1);
+      color: white;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(99, 102, 241, 0.5);
+      color: #e2e8f0;
+    }
+
+    .btn-outline:hover {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: #6366f1;
+    }
+
+    .skill-badge {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .skill-badge:hover {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: #818cf8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+      color: white;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #6366f1, #ec4899, #f59e0b);
+      animation: gradientLine 3s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes gradientLine {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.55rem;
+      top: 0.5rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      background: var(--gradient-1);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+      z-index: 1;
+    }
+
+    .timeline-item:hover::before {
+      transform: scale(1.3);
+      box-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
+    }
+
+    .date-badge {
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 0.2rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-title .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-1);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    /* Contact card */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .profile-wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--darker);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-1);
+      border-radius: 10px;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .email-highlight {
+      color: #a5b4fc;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px dashed rgba(99, 102, 241, 0.5);
+      transition: all 0.3s;
+      word-break: break-all;
+    }
+    .email-highlight:hover {
+      color: #c7d2fe;
+      border-bottom-color: #818cf8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated particles -->
+  <div class="particles" id="particles"></div>
+  <div class="bg-animation"></div>
+
+  <div class="container">
+    
+    <!-- Hero Profile Section -->
+    <div class="glass-card fade-in" style="margin-bottom: 2rem;">
+      <div class="profile-wrapper">
+        <!-- Profile Image with glow effect (replace src with your photo) -->
+        <div style="position: relative; display: inline-block;">
+          <div class="profile-img-glow"></div>
+          <div style="position: relative; z-index: 1; width: 180px; height: 180px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(99, 102, 241, 0.5);">
+            <img 
+              src="IMG_9477.jpg" 
+              alt="Safarulla Profile" 
+              style="width: 100%; height: 100%; object-fit: cover;"
+              onerror="this.src='https://ui-avatars.com/api/?name=Safarulla&background=6366f1&color=fff&size=200&bold=true'"
+            >
+          </div>
+        </div>
+        
+        <div style="flex: 1;">
+          <div class="flex-between">
+            <div>
+              <h1 style="font-size: 3rem; font-weight: 800;" class="gradient-text">Safarullah  A.F</h1>
+              <p style="font-size: 1.4rem; color: #94a3b8; font-weight: 500; margin-top: 0.5rem;">
+                <span class="gradient-text-pink"> Junior Data Analyst</span> & IT Professional
+              </p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+              <a href="mailto:iamsafa2002@gmail.com" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Contact Me
+              </a>
+              <a href="https://drive.google.com/file/d/1rO25bWMPfph2hBF3lcSGL0SlJPIony2W/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                <i class="fas fa-download"></i> Download CV
+              </a>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+            <div class="contact-item">
+              <i class="fas fa-envelope" style="color: #818cf8; font-size: 1.2rem;"></i>
+              <a href="mailto:iamsafa2002@gmail.com" class="email-highlight">iamsafa2002@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt" style="color: #f472b6;"></i>
+              <span>Sri Lanka</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-graduation-cap" style="color: #fbbf24;"></i>
+              <span>BSc MIT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid-2" style="margin-top: 2rem;">
+      
+      <!-- Left Column -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Work Experience -->
+        <div class="glass-card fade-in delay-1">
+          <div class="section-title">
+            <div class="icon"><i class="fas fa-briefcase"></i></div>
+            <span class="gradient-text">Experience</span>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="date-badge">Jan 2026 – Present</span>
+              <h3 style="color: #e2e8f0; font-size: 1.3rem;">Assistant Accountant</h3>
+              <p style="color: #a5b4fc; font-weight: 500;">Educational Development Association</p>
+              <p style="color: #94a3b8; margin-top: 0.5rem;">
+                <i class="fas fa-circle-check" style="color: #6366f1; margin-right: 0.5rem;"></i>
+                Financial records, invoices & expense tracking with MS Excel
+              </p>
+              <p style="color: #94a3b8;">
+                <i class="fas fa-circle-check" style="color: #6366f1; margin-right: 0.5rem;"></i>
+                Cross-checked financial reports & ledger accuracy
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="date-badge">Mar 2022 – Dec 2023</span>
+              <h3 style="color: #e2e8f0; font-size: 1.3rem;">IT Officer</h3>
+              <p style="color: #a5b4fc; font-weight: 500;">GBC Business Consulting</p>
+              <p style="color: #94a3b8; margin-top: 0.5rem;">
+                <i class="fas fa-circle-check" style="color: #ec4899; margin-right: 0.5rem;"></i>
+                IT operations: hardware, LAN, email, user management
+              </p>
+              <p style="color: #94a3b8;">
+                <i class="fas fa-circle-check" style="color: #ec4899; margin-right: 0.5rem;"></i>
+                Data backups, security & digital workflow optimization
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="date-badge">2020 · 6 Months (Hybrid)</span>
+              <h3 style="color: #e2e8f0; font-size: 1.3rem;">Data Analyst Intern</h3>
+              <p style="color: #a5b4fc; font-weight: 500;">Retail Analytics (Kandy Branch)</p>
+              <p style="color: #94a3b8; margin-top: 0.5rem;">
+                <i class="fas fa-circle-check" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+                Excel dashboards & Power BI for footfall/revenue analysis
+              </p>
+              <p style="color: #94a3b8;">
+                <i class="fas fa-circle-check" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+                SQL cleaning & demand forecasting for fashion collections
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="glass-card fade-in delay-2">
+          <div class="section-title">
+            <div class="icon"><i class="fas fa-university"></i></div>
+            <span class="gradient-text">Education</span>
+          </div>
+          <h3 style="font-size: 1.4rem; color: #e2e8f0;">BSc in Management & Information Technology</h3>
+          <p style="color: #a5b4fc; margin-bottom: 1rem;">South Eastern University of Sri Lanka · 2023–2026</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span class="skill-badge"><i class="fas fa-chart-bar"></i> Data Analysis</span>
+            <span class="skill-badge"><i class="fas fa-brain"></i> Business Intelligence</span>
+            <span class="skill-badge"><i class="fas fa-database"></i> SQL</span>
+            <span class="skill-badge"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-badge"><i class="fas fa-robot"></i> AI Fundamentals</span>
+            <span class="skill-badge"><i class="fas fa-code"></i> Web Dev</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Skills -->
+        <div class="glass-card fade-in delay-3">
+          <div class="section-title">
+            <div class="icon"><i class="fas fa-crown"></i></div>
+            <span class="gradient-text">Expertise</span>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="color: #c7d2fe; margin-bottom: 0.8rem;"><i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i>Data & Analytics</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              <span class="skill-badge">MS Excel (Advanced)</span>
+              <span class="skill-badge">SQL / MySQL</span>
+              <span class="skill-badge">Python (Pandas, NumPy)</span>
+              <span class="skill-badge">Power BI</span>
+              <span class="skill-badge">Data Cleaning</span>
+              <span class="skill-badge">Statistical Analysis</span>
+            </div>
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="color: #f0abfc; margin-bottom: 0.8rem;"><i class="fas fa-briefcase" style="margin-right: 0.5rem;"></i>Business Skills</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              <span class="skill-badge">Business Analysis</span>
+              <span class="skill-badge">Financial Reporting</span>
+              <span class="skill-badge">E-Commerce Analytics</span>
+              <span class="skill-badge">Retail Trends</span>
+              <span class="skill-badge">Project Management</span>
+              <span class="skill-badge">Agile / SDLC</span>
+            </div>
+          </div>
+          
+          <div>
+            <h4 style="color: #fde68a; margin-bottom: 0.8rem;"><i class="fas fa-laptop-code" style="margin-right: 0.5rem;"></i>Technical</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              <span class="skill-badge">Java</span>
+              <span class="skill-badge">HTML / CSS</span>
+              <span class="skill-badge">Data Entry (High Accuracy)</span>
+              <span class="skill-badge">Network & IT Support</span>
+              <span class="skill-badge">MS Office Suite</span>
+              <span class="skill-badge">Remote Collaboration</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages & Reference -->
+        <div class="glass-card fade-in delay-4">
+          <div class="section-title">
+            <div class="icon"><i class="fas fa-globe"></i></div>
+            <span class="gradient-text">Languages</span>
+          </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <span class="skill-badge" style="font-size: 1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> English (Fluent)</span>
+            <span class="skill-badge" style="font-size: 1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Tamil (Native)</span>
+            <span class="skill-badge" style="font-size: 1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Sinhala (Proficient)</span>
+          </div>
+
+          <div style="background: rgba(99, 102, 241, 0.1); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+            <h4 style="color: #e2e8f0; margin-bottom: 1rem;"><i class="fas fa-quote-right" style="color: #818cf8;"></i> Reference</h4>
+            <p style="font-weight: 700; font-size: 1.1rem;">Mahroof Farwis</p>
+            <p style="color: #94a3b8;">Lecturer, Dept. of Accountancy & Finance</p>
+            <p style="color: #94a3b8;">South Eastern University of Sri Lanka</p>
+            <div style="margin-top: 0.8rem;">
+              <a href="mailto:farwism@seu.ac.lk" style="color: #a5b4fc; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-envelope" style="color: #818cf8;"></i> farwism@seu.ac.lk
+              </a>
+            </div>
+            <p style="margin-top: 0.3rem;"><i class="fas fa-phone" style="color: #818cf8; margin-right: 0.5rem;"></i> +94 776 367 585</p>
+            <p><i class="fas fa-location-dot" style="color: #f472b6; margin-right: 0.5rem;"></i> University Park, Oluvil</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #64748b;">
+      
+    </div>
+  </div>
+
+  <script>
+    // Create floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 6 + 2;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+      particle.style.animationDelay = Math.random() * 10 + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // Intersection Observer for fade animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.glass-card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
+```
